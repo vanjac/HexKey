@@ -61,7 +61,7 @@ public class HexKeyFrame extends JFrame implements KeyListener {
 	private KeyPosition getKeyPosition(KeyEvent k) {
 		KeyPosition pos = null;
 		try {
-			pos = keyPositions[k.getKeyChar()];
+			pos = keyPositions[Character.toLowerCase(k.getKeyChar())];
 			if(pos != null)
 				return pos;
 		} catch (ArrayIndexOutOfBoundsException e) { }
