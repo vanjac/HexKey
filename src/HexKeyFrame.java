@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
@@ -22,7 +24,12 @@ public class HexKeyFrame extends JFrame implements KeyListener {
 		"  asdfghjkl;'\n ",
 		"  zxcvbnm,./   "
 	};
+
+	private int offsetX = 0;
+	private int offsetY = 0;
 	
+	private List<Integer> keysPressed = new ArrayList<>();
+
 	private class KeyPosition {
 		int x;
 		int y;
@@ -34,6 +41,10 @@ public class HexKeyFrame extends JFrame implements KeyListener {
 
 		public String toString() {
 			return "" + x + ", " + y;
+		}
+
+		public KeyPosition shift(int x, int y) {
+			return new KeyPosition(this.x + x, this.y + y);
 		}
 	}
 	
@@ -106,7 +117,8 @@ public class HexKeyFrame extends JFrame implements KeyListener {
 	private int getNoteAtPosition(KeyPosition position) {
 		if (position == null)
 			return -1;
-		
+		position = position.shift(offsetX, offsetY);
+
 		int note = baseNote;
 		
 		note += position.x * 2;
@@ -124,13 +136,17 @@ public class HexKeyFrame extends JFrame implements KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent e) {
+		if(keysPressed.contains(e.getKeyCode()))
+			return;
 		int note = getNoteAtPosition(getKeyPosition(e));
 		player.playNote(note);
+		keysPressed.add(e.getKeyCode());
 	}
 	
 	public void keyReleased(KeyEvent e) {
 		int note = getNoteAtPosition(getKeyPosition(e));
 		player.stopNote(note);
+		keysPressed.remove((Integer)e.getKeyCode());
 	}
 	
 	

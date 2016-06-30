@@ -10,5 +10,4 @@ keyboard is highly recommended, if possible. The lag created by software synthes
 becomes very noticeable when you try to play music.
 
 Once the program starts, a very small window will appear. That window doesn't do anything but it does
-capture keyboard input, so it must be in the foreground. A link to the keyboard layout is above. On some
-operating systems you may have to disable key repeat to prevent repeated notes when you hold down a key.
+capture keyboard input, so it must be in the foreground. A link to the keyboard layout is above.
